@@ -20,6 +20,7 @@ const months = [
   "Dec",
 ];
 
+//checking if window has loaded
 window.addEventListener("load", () => {
   searchBar.value = "";
   searchBar.focus();
@@ -46,6 +47,7 @@ preloaderTextPaths.forEach((path) => {
 preloaderTextPaths[preloaderTextPaths.length - 1].addEventListener(
   "animationend",
   () => {
+    //getting rid of the preloader
     preloader.classList.add("preload-finish");
   }
 );
@@ -57,13 +59,11 @@ const fetchData = async () => {
     const fetchedData = await fetch(URL); // using fetch with async/await to fetch data
     const fetchedDataJson = await fetchedData.json();
     if (fetchedData.status !== 200) fetchData();
-    console.log(fetchedDataJson);
+    // console.log(fetchedDataJson);
     await fetchIndiaData();
     renderData(fetchedDataJson);
     addSearchFunctionality(fetchedDataJson);
     addDetailsFunctionality(fetchedDataJson);
-    // document.querySelector(".container").style.animation =
-    //   "fade-in-bottom .9s ease-in-out forwards";
   } catch (error) {
     // catch block to handle errors
     console.log("Some error occurred\n" + error);
@@ -71,6 +71,7 @@ const fetchData = async () => {
   }
 };
 
+//function to fetch data for India from the api
 const fetchIndiaData = async () => {
   try {
     const URL = "https://api.covid19india.org/data.json";
@@ -78,10 +79,10 @@ const fetchIndiaData = async () => {
     const responseJson = await response.json();
     if (response.status !== 200) fetchIndiaData();
     statesData = responseJson.statewise;
-    console.log(statesData);
-    console.log(sortConfirmed(statesData));
+    // console.log(statesData);
+    // console.log(sortConfirmed(statesData));
     casesTimeSeries = responseJson.cases_time_series;
-    console.log(casesTimeSeries);
+    // console.log(casesTimeSeries);
     barCharts.push(createBarChart(casesTimeSeries, "Confirmed"));
     barCharts.push(createBarChart(casesTimeSeries, "Active"));
     barCharts.push(createBarChart(casesTimeSeries, "Recovered"));
@@ -93,8 +94,10 @@ const fetchIndiaData = async () => {
   }
 };
 
+//calling the function that fetches data from the api
 fetchData();
 
+//function to fetch daily worldwide data from the api
 const fetchDailyData = async () => {
   try {
     const URL = "https://covid19.mathdro.id/api/daily";
@@ -102,7 +105,7 @@ const fetchDailyData = async () => {
     const fetchedDailyDataJson = await fetchedDailyData.json();
     if (fetchedDailyData.status !== 200) fetchDailyData();
     const dailyDataSimplified = manipulateDailyData(fetchedDailyDataJson);
-    console.log(dailyDataSimplified);
+    // console.log(dailyDataSimplified);
     lineChart = createLineChart(dailyDataSimplified);
   } catch (error) {
     // catch block to handle errors
@@ -111,8 +114,10 @@ const fetchDailyData = async () => {
   }
 };
 
+//calling function that fetches daily worldwide data from the api
 fetchDailyData();
 
+//function that fetches the daily data of a country from the api
 const fetchDailyDataCountry = async (countryName) => {
   const url = `https://api.covid19api.com/total/dayone/country/${countryName}`;
   try {
@@ -122,7 +127,7 @@ const fetchDailyDataCountry = async (countryName) => {
     const dailyDataCountrySimplified = manipulateDailyDataCountry(
       fetchedDailyDataCountryJson
     );
-    console.log(fetchedDailyDataCountryJson, dailyDataCountrySimplified);
+    // console.log(fetchedDailyDataCountryJson, dailyDataCountrySimplified);
     if (dailyDataCountrySimplified.length === 0) return false;
     lineChart = createLineChart(dailyDataCountrySimplified, true);
     return true;
@@ -133,6 +138,7 @@ const fetchDailyDataCountry = async (countryName) => {
   }
 };
 
+//rendering the data in form of cards for each country
 function renderData(data) {
   const updatedTime = document.getElementById("updated-time");
   updatedTime.textContent =
@@ -180,7 +186,21 @@ function renderData(data) {
       data1.classList.add(`new-${categories[index].toLowerCase()}`);
       data2.textContent =
         country.Country.toLowerCase() === "india"
-          ? "+" + statesData[0][`delta${categories[index].toLowerCase()}`]
+          ? parseInt(
+              statesData[0][`delta${categories[index].toLowerCase()}`]
+            ) >= 0
+            ? "+" +
+              Math.abs(
+                parseInt(
+                  statesData[0][`delta${categories[index].toLowerCase()}`]
+                )
+              )
+            : "-" +
+              Math.abs(
+                parseInt(
+                  statesData[0][`delta${categories[index].toLowerCase()}`]
+                )
+              )
           : "+" +
             country[
               `New${
@@ -198,6 +218,7 @@ function renderData(data) {
   });
 }
 
+//function to display global data
 function renderGlobalData(data) {
   const statsDivs = document.querySelectorAll(
     ".global .card .stats .stat-data"
@@ -273,7 +294,6 @@ function search(value, data) {
     if (country.Country.toUpperCase().startsWith(value.toUpperCase())) {
       cardIndex = index;
       cards[cardIndex].style.display = "flex";
-      // console.log(cardIndex, cards[cardIndex]);
     }
   });
   if (
@@ -318,6 +338,7 @@ function addDetailsFunctionality(data) {
   });
 }
 
+//this function is fired when the user clicks on a card to view the corresponding country's details
 async function viewDetails(card, index, data) {
   const overlayDiv = document.createElement("div");
   overlayDiv.classList.add("overlay-div");
@@ -352,9 +373,11 @@ async function viewDetails(card, index, data) {
           content.Country && content.Country.toLowerCase() === "india"
             ? statesData[0].confirmed
             : content.TotalConfirmed
-        } <span>+${
+        } <span>${
     content.Country && content.Country.toLowerCase() === "india"
-      ? statesData[0].deltaconfirmed
+      ? parseInt(statesData[0].deltaconfirmed) >= 0
+        ? `+${Math.abs(parseInt(statesData[0].deltaconfirmed))}`
+        : `-${Math.abs(parseInt(statesData[0].deltaconfirmed))}`
       : content.NewConfirmed
   } new</span></p>
       </div>
@@ -415,7 +438,11 @@ async function viewDetails(card, index, data) {
           parseInt(stateData.deltaconfirmed) !== 0 &&
           stateData.deltaconfirmed !== undefined &&
           stateData.deltaconfirmed !== null
-            ? `<br><span class="delta-state-cases"> + ${stateData.deltaconfirmed}</span>`
+            ? `<br><span class="delta-state-cases"> ${
+                parseInt(stateData.deltaconfirmed) >= 0
+                  ? `+${Math.abs(parseInt(stateData.deltaconfirmed))}`
+                  : `-${Math.abs(parseInt(stateData.deltaconfirmed))}`
+              }</span>`
             : ""
         }</p>
        <p>${stateData.active} ${
@@ -423,10 +450,21 @@ async function viewDetails(card, index, data) {
             parseInt(stateData.deltarecovered) -
             parseInt(stateData.deltadeaths) !==
           0
-            ? `<br><span class="delta-state-cases"> + ${
+            ? `<br><span class="delta-state-cases"> ${
                 parseInt(stateData.deltaconfirmed) -
-                parseInt(stateData.deltarecovered) -
-                parseInt(stateData.deltadeaths)
+                  parseInt(stateData.deltarecovered) -
+                  parseInt(stateData.deltadeaths) >=
+                0
+                  ? `+${Math.abs(
+                      parseInt(stateData.deltaconfirmed) -
+                        parseInt(stateData.deltarecovered) -
+                        parseInt(stateData.deltadeaths)
+                    )}`
+                  : `-${Math.abs(
+                      parseInt(stateData.deltaconfirmed) -
+                        parseInt(stateData.deltarecovered) -
+                        parseInt(stateData.deltadeaths)
+                    )}`
               }<span>`
             : ""
         }</p>
@@ -434,14 +472,22 @@ async function viewDetails(card, index, data) {
           parseInt(stateData.deltarecovered) !== 0 &&
           stateData.deltarecovered !== undefined &&
           stateData.deltarecovered !== null
-            ? `<br><span class="delta-state-cases"> + ${stateData.deltarecovered}</span>`
+            ? `<br><span class="delta-state-cases"> ${
+                parseInt(stateData.deltarecovered) >= 0
+                  ? `+${Math.abs(parseInt(stateData.deltarecovered))}`
+                  : `-${Math.abs(parseInt(stateData.deltarecovered))}`
+              }</span>`
             : ""
         }</p>
        <p>${stateData.deaths} ${
           parseInt(stateData.deltadeaths) !== 0 &&
           stateData.deltadeaths !== undefined &&
           stateData.deltadeaths !== null
-            ? `<br><span class="delta-state-cases"> + ${stateData.deltadeaths}</span>`
+            ? `<br><span class="delta-state-cases"> ${
+                parseInt(stateData.deltadeaths) >= 0
+                  ? `+${Math.abs(parseInt(stateData.deltadeaths))}`
+                  : `-${Math.abs(parseInt(stateData.deltadeaths))}`
+              }</span>`
             : ""
         }</p>
        ${
@@ -466,7 +512,7 @@ async function viewDetails(card, index, data) {
   if (content.Country && content.Country !== "India")
     dailyDataExists = await fetchDailyDataCountry(card.dataset.slug);
   else if (content.Country === "India") {
-    console.log(manipulateIndianData(casesTimeSeries));
+    // console.log(manipulateIndianData(casesTimeSeries));
     lineChart = createLineChart(manipulateIndianData(casesTimeSeries), true);
   }
   if (dailyDataExists) appendCountryLineChart(lineChart, content.Country);
@@ -508,6 +554,7 @@ const createTabs = () => {
   });
 };
 
+// this function is fired when user clicks on back-btn at the top of the page => to go back to the home page
 function goToHome() {
   setTimeout(
     () => (document.querySelector(".container").style.display = "block"),
@@ -716,16 +763,12 @@ const manipulateDailyDataCountry = (data) => {
   });
 };
 
+// function to change the date from
 const manipulateDate = (date) => {
-  const day = new Date(date).toLocaleDateString();
-  const dateParts = day.split("/");
-  return (
-    dateParts[0] +
-    " " +
-    months[dateParts[1] - 1] +
-    " '" +
-    dateParts[2].substr(2)
-  );
+  const day = new Date(date).getDate();
+  const month = new Date(date).getMonth();
+  const year = new Date(date).getFullYear();
+  return `${day} ${months[month]}'${year % 100}`;
 };
 
 const manipulateIndianData = (casesTimeSeries) => {

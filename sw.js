@@ -9,6 +9,8 @@ const staticAssets = [
   "./registerSw.js",
   "./sw.js",
   "./assets/icon.ico",
+  "./assets/search-icon.png",
+  "./assets/search-icon.svg",
 ];
 
 self.addEventListener("install", async (e) => {

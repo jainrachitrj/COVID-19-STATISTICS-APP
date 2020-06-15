@@ -1133,11 +1133,13 @@ main .alert-msg p {
   border-radius: 6px;
   opacity: 0;
   pointer-events: none;
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
 
 .main-content .sec2-content .table-row:hover .state-notes {
+  -webkit-transform: translateY(-50%) translateX(0px);
+          transform: translateY(-50%) translateX(0px);
   opacity: 1;
   pointer-events: all;
 }
@@ -1158,8 +1160,8 @@ main .alert-msg p {
           flex-direction: row;
   left: 300px;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  -webkit-transform: translateY(-50%) translateX(-10px);
+          transform: translateY(-50%) translateX(-10px);
   text-align: left;
   max-width: 250px;
 }

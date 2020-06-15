@@ -81,9 +81,6 @@ $mobile: 365px;
 
 .container {
   width: 100%;
-  // opacity: 0;
-  // pointer-events: none;
-  // transform: translateY(40px);
 }
 
 .header {
@@ -733,10 +730,11 @@ main {
         border-radius: 6px;
         opacity: 0;
         pointer-events: none;
-        transition: all 0.2s ease-in-out;
+        transition: all 0.25s ease-in-out;
       }
       &:hover {
         .state-notes {
+          transform: translateY(-50%) translateX(0px);
           opacity: 1;
           pointer-events: all;
         }
@@ -747,7 +745,7 @@ main {
         @include flex(center, center);
         left: 300px;
         top: 50%;
-        transform: translateY(-50%);
+        transform: translateY(-50%) translateX(-10px);
         text-align: left;
         max-width: 250px;
         .note-content {
@@ -871,14 +869,6 @@ main {
     pointer-events: all;
   }
 }
-
-// @keyframes fade-in-bottom {
-//   to {
-//     opacity: 1;
-//     pointer-events: all;
-//     transform: translateY(0);
-//   }
-// }
 
 @keyframes preloader-text {
   to {
