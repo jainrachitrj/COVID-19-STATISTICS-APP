@@ -104,15 +104,15 @@ $mobile: 365px;
     }
   }
   h3 {
-    font-size: 18px;
+    font-size: 17px;
     letter-spacing: 1px;
     margin-top: 10px;
     color: #686868;
+    text-transform: none;
+    font-weight: 600;
     @include intermediate() {
       font-size: 15px;
       letter-spacing: 0.5px;
-      text-transform: capitalize;
-      font-weight: 500;
       margin-top: 6px;
     }
     @include mobile {
@@ -223,6 +223,10 @@ $mobile: 365px;
   margin-left: 0;
 }
 main {
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: all 0.5s ease-in-out;
   width: 100%;
   .cards-wrapper {
     display: flex;
@@ -356,7 +360,7 @@ main {
           @include flex(space-between, center);
           margin: 5px 0;
           .stat-head {
-            color: #dddddd;
+            color: #fbfbfb;
           }
           .numbers {
             @include flex(center, center);
@@ -369,7 +373,7 @@ main {
               &:nth-child(2) {
                 margin-left: 3px;
                 margin-top: 0px;
-                color: #eeeeee;
+                color: #fafafa;
               }
             }
           }
@@ -388,24 +392,6 @@ main {
       .card {
         min-width: 100%;
         border-radius: 10px;
-      }
-    }
-    @include mobile() {
-      .card {
-        .stats {
-          .stat-data {
-            .stat-head {
-              color: #fbfbfb;
-            }
-            .numbers {
-              p {
-                &:nth-child(2) {
-                  color: #fafafa;
-                }
-              }
-            }
-          }
-        }
       }
     }
   }
@@ -431,6 +417,12 @@ main {
       margin-top: 6px;
     }
   }
+}
+
+.main-loaded {
+  pointer-events: all;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .overlay-div {

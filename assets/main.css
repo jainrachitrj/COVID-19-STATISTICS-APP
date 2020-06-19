@@ -74,18 +74,18 @@
 }
 
 .header h3 {
-  font-size: 18px;
+  font-size: 17px;
   letter-spacing: 1px;
   margin-top: 10px;
   color: #686868;
+  text-transform: none;
+  font-weight: 600;
 }
 
 @media screen and (max-width: 620px) {
   .header h3 {
     font-size: 15px;
     letter-spacing: 0.5px;
-    text-transform: capitalize;
-    font-weight: 500;
     margin-top: 6px;
   }
 }
@@ -266,6 +266,12 @@
 }
 
 main {
+  opacity: 0;
+  -webkit-transform: translateY(20px);
+          transform: translateY(20px);
+  pointer-events: none;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
   width: 100%;
 }
 
@@ -543,7 +549,7 @@ main .global .card .stats .stat-data {
 }
 
 main .global .card .stats .stat-data .stat-head {
-  color: #dddddd;
+  color: #fbfbfb;
 }
 
 main .global .card .stats .stat-data .numbers {
@@ -571,7 +577,7 @@ main .global .card .stats .stat-data .numbers p:nth-child(1) {
 main .global .card .stats .stat-data .numbers p:nth-child(2) {
   margin-left: 3px;
   margin-top: 0px;
-  color: #eeeeee;
+  color: #fafafa;
 }
 
 @media screen and (max-width: 620px) {
@@ -591,15 +597,6 @@ main .global .card .stats .stat-data .numbers p:nth-child(2) {
   main .global .card {
     min-width: 100%;
     border-radius: 10px;
-  }
-}
-
-@media screen and (max-width: 365px) {
-  main .global .card .stats .stat-data .stat-head {
-    color: #fbfbfb;
-  }
-  main .global .card .stats .stat-data .numbers p:nth-child(2) {
-    color: #fafafa;
   }
 }
 
@@ -628,6 +625,13 @@ main .alert-msg p {
   font-weight: normal;
   color: #333333;
   margin-top: 6px;
+}
+
+.main-loaded {
+  pointer-events: all;
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
 }
 
 .overlay-div {

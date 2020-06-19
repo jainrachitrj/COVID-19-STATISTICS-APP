@@ -29,29 +29,6 @@ window.addEventListener("load", () => {
   searchBar.dispatchEvent(inputEvent);
 });
 
-const preloader = document.querySelector(".preloader");
-const preloaderTextPaths = [];
-document.querySelectorAll("#preloader-text path").forEach((path) => {
-  if (path.getAttribute("stroke") !== null) preloaderTextPaths.push(path);
-});
-
-let delay = 0.1;
-preloaderTextPaths.forEach((path) => {
-  const length = path.getTotalLength();
-  path.style.strokeDasharray = length;
-  path.style.strokeDashoffset = length;
-  path.style.animation = `preloader-text .7s ${delay}s ease-in-out forwards`;
-  delay += 0.2;
-});
-
-preloaderTextPaths[preloaderTextPaths.length - 1].addEventListener(
-  "animationend",
-  () => {
-    //getting rid of the preloader
-    preloader.classList.add("preload-finish");
-  }
-);
-
 // function to fetch data from the api
 const fetchData = async () => {
   try {
@@ -64,10 +41,11 @@ const fetchData = async () => {
     renderData(fetchedDataJson);
     addSearchFunctionality(fetchedDataJson);
     addDetailsFunctionality(fetchedDataJson);
+    document.querySelector("main").classList.add("main-loaded");
   } catch (error) {
     // catch block to handle errors
-    console.log("Some error occurred\n" + error);
-    //   fetchData();
+    // console.log("Some error occurred\n" + error);
+    // fetchData();
   }
 };
 
@@ -89,7 +67,7 @@ const fetchIndiaData = async () => {
     barCharts.push(createBarChart(casesTimeSeries, "Deceased"));
   } catch (error) {
     // catch block to handle errors
-    console.log("Some error occurred\n" + error);
+    // console.log("Some error occurred\n" + error);
     fetchIndiaData();
   }
 };
@@ -109,7 +87,7 @@ const fetchDailyData = async () => {
     lineChart = createLineChart(dailyDataSimplified);
   } catch (error) {
     // catch block to handle errors
-    console.log("Some error occurred\n" + error);
+    // console.log("Some error occurred\n" + error);
     fetchDailyData();
   }
 };
@@ -133,7 +111,7 @@ const fetchDailyDataCountry = async (countryName) => {
     return true;
   } catch (error) {
     // catch block to handle errors
-    console.log("Some error occurred\n" + error);
+    // console.log("Some error occurred\n" + error);
     // fetchDailyDataCountry();
   }
 };
@@ -378,7 +356,7 @@ async function viewDetails(card, index, data) {
       ? parseInt(statesData[0].deltaconfirmed) >= 0
         ? `+${Math.abs(parseInt(statesData[0].deltaconfirmed))}`
         : `-${Math.abs(parseInt(statesData[0].deltaconfirmed))}`
-      : content.NewConfirmed
+      : `+${content.NewConfirmed}`
   } new</span></p>
       </div>
       <div class="stat-row">
