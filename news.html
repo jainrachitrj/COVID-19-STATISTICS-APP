@@ -8,7 +8,7 @@
       content="Tracking the impact of coronavirus COVID-19 worldwide with the help of live statistics on the number of confirmed cases, recovered patients and death toll."
     />
     <meta name="theme-color" content="#785ada" />
-    <title>Coronavirus COVID-19 Statistics - Latest News and Case Count</title>
+    <title>Coronavirus COVID-19 Statistics - Latest News</title>
     <link rel="shortcut icon" href="./assets/icon.ico" type="image/x-icon" />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Nunito:wght@400;600;700&family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
@@ -29,24 +29,14 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div class="preloader">
-      <div class="preload-parent">
-        <div class="preload-dot"></div>
-        <div class="preload-dot"></div>
-        <div class="preload-dot"></div>
-        <div class="preload-dot"></div>
-        <div class="preload-dot"></div>
-        <div class="preload-dot"></div>
-      </div>
-    </div>
     <div class="container">
       <div class="header">
-        <h1>COVID-19 Statistics</h1>
+        <h1>COVID-19 News</h1>
         <h3>Tracking the impact of Coronavirus worldwide</h3>
         <nav>
           <ul class="navbar">
-            <li class="navlink active"><a href="./index.html">Home</a></li>
-            <li class="navlink"><a href="./news.html">News</a></li>
+            <li class="navlink"><a href="./index.html">Home</a></li>
+            <li class="navlink active"><a href="./news.html">News</a></li>
             <li class="darkmode-toggler">
               <svg
                 class="darkmode-svg"
@@ -89,64 +79,20 @@
             </li>
           </ul>
         </nav>
-        <div class="search">
-          <div class="search-input">
-            <label for="search-bar">Country Name</label>
-            <input type="text" name="" id="search-bar" />
-            <span class="clear-btn">&times;</span>
-          </div>
-          <div class="search-icon">
-            <svg aria-hidden="true" focusable="false" viewBox="0 0 512 512">
-              <path
-                d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
-              ></path>
-            </svg>
-          </div>
-        </div>
       </div>
-      <main>
-        <p class="last-updated">Last Updated <span id="updated-time"></span></p>
-        <div class="global">
-          <div class="card">
-            <h1>Worldwide</h1>
-            <div class="stats">
-              <div class="stat-data confirmed-stat">
-                <p class="stat-head">CONFIRMED</p>
-                <div class="numbers">
-                  <p class="confirmed"></p>
-                  <p class="new-confirmed"></p>
-                </div>
-              </div>
-              <div class="stat-data recovered-stat">
-                <p class="stat-head">RECOVERED</p>
-                <div class="numbers">
-                  <p class="recovered"></p>
-                  <p class="new-recovered"></p>
-                </div>
-              </div>
-              <div class="stat-data deaths-stat">
-                <p class="stat-head">DEATHS</p>
-                <div class="numbers">
-                  <p class="deaths"></p>
-                  <p class="new-deaths"></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="cards-wrapper"></div>
-      </main>
+      <h4 style="color: #3d5af1; text-align: center;">
+        We will soon provide you with the latest news on COVID-19 Coronavirus
+      </h4>
     </div>
 
     <script>
       // check for saved 'darkMode' in localStorage
       let darkMode = localStorage.getItem("darkMode");
+      console.log(darkMode);
 
-      // selecting the darkModeTogglers
-      let darkModeToggler = document.querySelector(".darkmode-toggler");
+      const darkModeToggler = document.querySelector(".darkmode-toggler");
 
-      // selecting the svgs
-      let darkModeTogglerSvgs = document.querySelectorAll(
+      const darkModeTogglerSvgs = document.querySelectorAll(
         ".darkmode-toggler svg"
       );
 
@@ -166,6 +112,8 @@
         localStorage.setItem("darkMode", "false");
       };
 
+      console.log(darkModeTogglerSvgs);
+
       // If the user already visited and enabled darkMode => start things off with it on
 
       if (darkMode === "true") {
@@ -182,16 +130,17 @@
       darkModeToggler.addEventListener("click", () => {
         // get their darkMode setting
         darkMode = localStorage.getItem("darkMode");
+        console.log(darkMode, typeof darkMode);
 
+        // if dark mode is currently enabled, disable it
         if (darkMode === "false") {
-          // if dark mode is currently enabled, disable it
-
+          console.log("Not enabled currently 1");
           darkModeTogglerSvgs[0].style.display = "block";
           darkModeTogglerSvgs[1].style.display = "none";
           enableDarkMode();
         } else {
           // if dark mode is currently disabled, enable it
-
+          console.log("Not enabled currently 2");
           darkModeTogglerSvgs[0].style.display = "none";
           darkModeTogglerSvgs[1].style.display = "block";
           disableDarkMode();

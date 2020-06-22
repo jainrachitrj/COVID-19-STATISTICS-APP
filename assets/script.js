@@ -41,7 +41,7 @@ const fetchData = async () => {
     renderData(fetchedDataJson);
     addSearchFunctionality(fetchedDataJson);
     addDetailsFunctionality(fetchedDataJson);
-    document.querySelector("main").classList.add("main-loaded");
+    document.querySelector(".preloader").classList.add("preload-finish");
   } catch (error) {
     // catch block to handle errors
     // console.log("Some error occurred\n" + error);
@@ -185,8 +185,7 @@ function renderData(data) {
                 categories[index].substring(0, 1).toUpperCase() +
                 categories[index].substring(1).toLowerCase()
               }`
-            ] +
-            " new";
+            ];
       numbers.appendChild(data2);
       statData.appendChild(numbers);
       stats.appendChild(statData);
@@ -218,16 +217,16 @@ function renderGlobalData(data) {
       document.querySelector(".confirmed").textContent =
         confirmed.TotalConfirmed;
       document.querySelector(".new-confirmed").textContent =
-        "+" + confirmed.NewConfirmed + " new";
+        "+" + confirmed.NewConfirmed;
     } else if (statDiv.classList.contains("recovered-stat")) {
       document.querySelector(".recovered").textContent =
         recovered.TotalRecovered;
       document.querySelector(".new-recovered").textContent =
-        "+" + recovered.NewRecovered + " new";
+        "+" + recovered.NewRecovered;
     } else if (statDiv.classList.contains("deaths-stat")) {
       document.querySelector(".deaths").textContent = deaths.TotalDeaths;
       document.querySelector(".new-deaths").textContent =
-        "+" + deaths.NewDeaths + " new";
+        "+" + deaths.NewDeaths;
     }
   });
 }
@@ -333,12 +332,12 @@ async function viewDetails(card, index, data) {
   }
 
   overlayDiv.innerHTML = `<div class="details">
-  <div class="header">
-  <h1>COVID-19 Statistics</h1>
-  <h3>Stay Home. Save Lives</h3>
-  <div class="back-btn" onclick="goToHome()">
-  <svg aria-hidden="true" focusable="false" viewBox="0 0 512 512"><path d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm28.9-143.6L209.4 288H392c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24H209.4l75.5-72.4c9.7-9.3 9.9-24.8.4-34.3l-11-10.9c-9.4-9.4-24.6-9.4-33.9 0L107.7 239c-9.4 9.4-9.4 24.6 0 33.9l132.7 132.7c9.4 9.4 24.6 9.4 33.9 0l11-10.9c9.5-9.5 9.3-25-.4-34.3z"></path></svg>
-  </div>
+  <div class="header header-centered">
+    <h1>COVID-19 Statistics</h1>
+    <h3>Tracking the impact of Coronavirus worldwide</h3>
+    <div class="back-btn" onclick="goToHome()">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 512 512"><path d="M256 504C119 504 8 393 8 256S119 8 256 8s248 111 248 248-111 248-248 248zm28.9-143.6L209.4 288H392c13.3 0 24-10.7 24-24v-16c0-13.3-10.7-24-24-24H209.4l75.5-72.4c9.7-9.3 9.9-24.8.4-34.3l-11-10.9c-9.4-9.4-24.6-9.4-33.9 0L107.7 239c-9.4 9.4-9.4 24.6 0 33.9l132.7 132.7c9.4 9.4 24.6 9.4 33.9 0l11-10.9c9.5-9.5 9.3-25-.4-34.3z"></path></svg>
+    </div>    
   </div><div class="main-content">
   <div class="sec1-content">
     <h1 class="headline">${content.Country || "Worldwide"}</h1>
@@ -357,7 +356,7 @@ async function viewDetails(card, index, data) {
         ? `+${Math.abs(parseInt(statesData[0].deltaconfirmed))}`
         : `-${Math.abs(parseInt(statesData[0].deltaconfirmed))}`
       : `+${content.NewConfirmed}`
-  } new</span></p>
+  }</span></p>
       </div>
       <div class="stat-row">
         <h3 class="left-head">
@@ -371,7 +370,7 @@ async function viewDetails(card, index, data) {
     content.Country && content.Country.toLowerCase() === "india"
       ? statesData[0].deltarecovered
       : content.NewRecovered
-  } new</span></p>
+  }</span></p>
       </div>
       <div class="stat-row">
         <h3 class="left-head">
@@ -385,7 +384,7 @@ async function viewDetails(card, index, data) {
     content.Country && content.Country.toLowerCase() === "india"
       ? statesData[0].deltadeaths
       : content.NewDeaths
-  } new</span></p>
+  }</span></p>
       </div>
     </div>
   </div>
