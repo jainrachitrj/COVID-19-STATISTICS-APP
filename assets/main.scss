@@ -34,6 +34,7 @@ $colors: (
   odd-row-color: var(--odd-row-clr),
   state-notes-color: var(--state-note-clr),
   hover-tab-color: var(hover-tab-clr),
+  nav-background-color: var(--nav-background-clr),
 );
 
 @function getColor($color) {
@@ -109,6 +110,7 @@ $mobile: 365px;
   --odd-row-clr: #f5f5f5;
   --state-note-clr: #333333;
   --hover-tab-clr: #dddddd;
+  --nav-background-clr: #f0f0f0;
 }
 
 .darkmode {
@@ -139,6 +141,7 @@ $mobile: 365px;
   --odd-row-clr: #1e1e30;
   --state-note-clr: #000000;
   --hover-tab-clr: rgba(108, 117, 125, 0.12549);
+  --nav-background-clr: #1e1e30;
 }
 
 body {
@@ -278,10 +281,14 @@ ul {
     font-weight: bold;
     text-transform: uppercase;
     color: getColor(primary-color);
+    @include largeMobile() {
+      text-align: center;
+      margin-left: 0px;
+    }
   }
   h1 {
     @include intermediate {
-      font-size: 25px;
+      font-size: 23.5px;
     }
     @include mobile {
       font-size: 22px;
@@ -298,10 +305,13 @@ ul {
       max-width: 400px;
     }
     @include intermediate() {
-      // padding: 0 8px;
       font-size: 15px;
       letter-spacing: 0.5px;
       margin-top: 6px;
+    }
+    @include largeMobile() {
+      padding: 0 8px;
+      max-width: 100%;
     }
     @include mobile {
       font-size: 14px;
@@ -333,6 +343,58 @@ ul {
         a {
           color: getColor(primary-color);
         }
+      }
+    }
+    .hamburger {
+      display: none;
+      top: 30px;
+      right: 30px;
+      position: absolute;
+      margin: -6px 0;
+      cursor: pointer;
+      .line {
+        width: 20px;
+        height: 2px;
+        margin: 5px auto;
+        background-color: getColor(text-bold-color);
+      }
+      @include largeMobile() {
+        top: 20px;
+      }
+    }
+    @include intermediate() {
+      width: 100%;
+      right: unset;
+      left: 0;
+      top: 0px;
+      z-index: -1;
+      .hamburger {
+        display: block;
+      }
+      .navbar {
+        @include flex(center, flex-start, column);
+        width: 100%;
+        padding: 20px 30px;
+        min-height: 150px;
+        background-color: getColor(nav-background-color);
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: transform 0.4s ease-in-out;
+        .navlink,
+        .darkmode-toggler {
+          margin: 10px 0;
+          a {
+            padding: 10px;
+          }
+          opacity: 0;
+          pointer-events: none;
+        }
+        .darkmode-toggler {
+          margin-left: 20px;
+        }
+      }
+      .nav-open {
+        transform: scaleY(1);
       }
     }
   }

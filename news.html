@@ -78,78 +78,22 @@
               </svg>
             </li>
           </ul>
+          <div class="hamburger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
         </nav>
       </div>
-      <h4 style="color: #3d5af1; text-align: center;">
+      <h4 style="color: #3d5af1; text-align: center; padding: 20px;">
         We will soon provide you with the latest news on COVID-19 Coronavirus
       </h4>
     </div>
-
-    <script>
-      // check for saved 'darkMode' in localStorage
-      let darkMode = localStorage.getItem("darkMode");
-      console.log(darkMode);
-
-      const darkModeToggler = document.querySelector(".darkmode-toggler");
-
-      const darkModeTogglerSvgs = document.querySelectorAll(
-        ".darkmode-toggler svg"
-      );
-
-      // function to enable the dark mode
-      const enableDarkMode = () => {
-        // add the class to the body
-        document.body.classList.add("darkmode");
-        // update darkMode in localStorage
-        localStorage.setItem("darkMode", "true");
-      };
-
-      // function to disable the dark mode
-      const disableDarkMode = () => {
-        // remove the class from the body
-        document.body.classList.remove("darkmode");
-        // update darkMode in localStorage
-        localStorage.setItem("darkMode", "false");
-      };
-
-      console.log(darkModeTogglerSvgs);
-
-      // If the user already visited and enabled darkMode => start things off with it on
-
-      if (darkMode === "true") {
-        darkModeTogglerSvgs[0].style.display = "block";
-        darkModeTogglerSvgs[1].style.display = "none";
-        enableDarkMode();
-      } else {
-        darkModeTogglerSvgs[0].style.display = "none";
-        darkModeTogglerSvgs[1].style.display = "block";
-        disableDarkMode();
-      }
-
-      // When someone clicks the button
-      darkModeToggler.addEventListener("click", () => {
-        // get their darkMode setting
-        darkMode = localStorage.getItem("darkMode");
-        console.log(darkMode, typeof darkMode);
-
-        // if dark mode is currently enabled, disable it
-        if (darkMode === "false") {
-          console.log("Not enabled currently 1");
-          darkModeTogglerSvgs[0].style.display = "block";
-          darkModeTogglerSvgs[1].style.display = "none";
-          enableDarkMode();
-        } else {
-          // if dark mode is currently disabled, enable it
-          console.log("Not enabled currently 2");
-          darkModeTogglerSvgs[0].style.display = "none";
-          darkModeTogglerSvgs[1].style.display = "block";
-          disableDarkMode();
-        }
-      });
+  
     </script>
-
+    <script src="./assets/important.js"></script>
     <script src="./registerSw.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script src="./assets/script.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> -->
+    <!-- <script src="./assets/script.js"></script> -->
   </body>
 </html>
