@@ -1425,6 +1425,7 @@ main .alert-msg p {
 }
 
 .main-content .sec2-content .table-row {
+  cursor: pointer;
   margin: 0px;
   padding: 10px 5px;
   position: relative;
@@ -1575,6 +1576,26 @@ main .alert-msg p {
 
 .main-content .sec2-content .has-notes:hover {
   background-color: var(--hover-gray);
+}
+
+.main-content .sec2-content .state-last-updated-time {
+  min-height: 40px;
+  padding: 15px 0;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.main-content .sec2-content .state-last-updated-time .state-last-updated {
+  color: var(--recov-head-clr);
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  font-family: "Poppins", sans-serif;
+}
+
+.main-content .sec2-content .state-last-updated-time .state-last-updated span {
+  font-weight: 500;
 }
 
 @media screen and (max-width: 720px) {

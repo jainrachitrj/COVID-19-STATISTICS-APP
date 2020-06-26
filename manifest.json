@@ -1,9 +1,9 @@
 {
-  "name": "COVID-19 STATISTICS",
-  "short_name": "COVID-19 STATISTICS",
+  "name": "Coronavirus COVID-19 Statistics - Latest News and Case Count",
+  "short_name": "COVID-19 Statistics",
   "start_url": ".",
-  "background_color": "#3d5af1",
-  "theme_color": "#785ada",
+  "background_color": "#161625",
+  "theme_color": "#000000",
   "display": "standalone",
   "icons": [
     {
@@ -16,5 +16,6 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "orientation": "portrait"
 }

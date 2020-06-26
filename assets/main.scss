@@ -943,6 +943,7 @@ main {
       }
     }
     .table-row {
+      cursor: pointer;
       margin: 0px;
       padding: 10px 5px;
       position: relative;
@@ -1047,6 +1048,22 @@ main {
       }
       &:hover {
         background-color: getColor(hover-gray-color);
+      }
+    }
+    .state-last-updated-time {
+      min-height: 40px;
+      padding: 15px 0;
+      align-self: flex-start;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      .state-last-updated {
+        color: getColor(recovered-head-color);
+        font-size: 15px;
+        letter-spacing: 0.5px;
+        font-family: "Poppins", sans-serif;
+        span {
+          font-weight: 500;
+        }
       }
     }
     @include tablet {

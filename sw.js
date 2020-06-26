@@ -1,6 +1,7 @@
 const staticAssets = [
   "./",
   "./index.html",
+  "./news.html",
   "./assets/main.css",
   "./assets/icon_192.png",
   "./assets/icon_512.png",
@@ -11,6 +12,7 @@ const staticAssets = [
   "./assets/icon.ico",
   "./assets/search-icon.png",
   "./assets/search-icon.svg",
+  "./assets/important.js",
 ];
 
 self.addEventListener("install", async (e) => {

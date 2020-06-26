@@ -501,6 +501,40 @@ async function viewDetails(card, index, data) {
       elem.style.display = "none";
     });
   }
+  if (content.Country === "India") {
+    listenClickOnTableRows();
+  }
+}
+
+function listenClickOnTableRows() {
+  const table = document.querySelector(".table-inner");
+  const tableRows = document.querySelectorAll(".table-row");
+  tableRows.forEach((tableRow, index) => {
+    tableRow.addEventListener("click", () => {
+      const updatedTime = document.querySelector(
+        `.${tableRow.children[0].textContent
+          .trim()
+          .replace(" ", "")}-updated-time`
+      );
+      console.log(updatedTime);
+      if (updatedTime) {
+        console.log("remove");
+        updatedTime.remove();
+        return;
+      }
+      const stateLastUpdatedTime = document.createElement("div");
+      stateLastUpdatedTime.classList.add(
+        "state-last-updated-time",
+        `${tableRow.children[0].textContent
+          .trim()
+          .replace(" ", "")}-updated-time`
+      );
+      stateLastUpdatedTime.innerHTML = `<p class="state-last-updated">Last Updated <span>${
+        statesData[index + 1].lastupdatedtime
+      }</span></p>`;
+      table.insertBefore(stateLastUpdatedTime, tableRows[index + 1]);
+    });
+  });
 }
 
 const createTabs = () => {
