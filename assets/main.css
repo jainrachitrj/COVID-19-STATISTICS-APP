@@ -1246,15 +1246,37 @@ main .alert-msg p {
           flex-direction: row;
   font-size: 16px;
   font-weight: bold;
-  color: var(--blue-text);
   letter-spacing: 1px;
 }
 
 .main-content .sec1-content .content-stats .stat-row .right-number span {
-  font-size: 14px;
-  color: var(--gray);
+  font-size: 13px;
   font-weight: 600;
   margin-left: 6px;
+}
+
+.main-content .sec1-content .content-stats .stat-row .confirmed-number {
+  color: var(--blue-text);
+}
+
+.main-content .sec1-content .content-stats .stat-row .confirmed-number span {
+  color: var(--blue-text);
+}
+
+.main-content .sec1-content .content-stats .stat-row .active-number {
+  color: var(--active-head-clr);
+}
+
+.main-content .sec1-content .content-stats .stat-row .recovered-number {
+  color: var(--recov-head-clr);
+}
+
+.main-content .sec1-content .content-stats .stat-row .recovered-number span {
+  color: var(--recov-head-clr);
+}
+
+.main-content .sec1-content .content-stats .stat-row .death-number {
+  color: var(--death-head-clr);
 }
 
 @media screen and (max-width: 620px) {
@@ -1355,7 +1377,7 @@ main .alert-msg p {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  overflow-x: scroll;
+  overflow-x: auto;
   width: 100%;
   padding: 20px 30px;
 }
@@ -1433,11 +1455,11 @@ main .alert-msg p {
   transition: all 0.2s ease-in-out;
 }
 
-.main-content .sec2-content .table-row:nth-child(even) {
+.main-content .sec2-content .table-row:nth-of-type(even) {
   background-color: var(--backgroundColor);
 }
 
-.main-content .sec2-content .table-row:nth-child(odd) {
+.main-content .sec2-content .table-row:nth-of-type(odd) {
   background-color: var(--odd-row-clr);
 }
 
@@ -1503,11 +1525,8 @@ main .alert-msg p {
   transition: all 0.25s ease-in-out;
 }
 
-.main-content .sec2-content .table-row:hover .state-notes {
-  -webkit-transform: translateY(-50%) translateX(0px);
-          transform: translateY(-50%) translateX(0px);
-  opacity: 1;
-  pointer-events: all;
+.main-content .sec2-content .table-row:hover {
+  background-color: var(--hover-gray);
 }
 
 .main-content .sec2-content .has-notes p.state-notes {
@@ -1574,11 +1593,15 @@ main .alert-msg p {
   padding-left: 10px;
 }
 
-.main-content .sec2-content .has-notes:hover {
-  background-color: var(--hover-gray);
+.main-content .sec2-content .has-notes .state-notes-displayed {
+  -webkit-transform: translateY(-50%) translateX(0px);
+          transform: translateY(-50%) translateX(0px);
+  opacity: 1;
+  pointer-events: all;
 }
 
 .main-content .sec2-content .state-last-updated-time {
+  width: 100%;
   min-height: 40px;
   padding: 15px 0;
   -ms-flex-item-align: start;

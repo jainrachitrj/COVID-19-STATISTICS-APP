@@ -346,7 +346,7 @@ async function viewDetails(card, index, data) {
         <h3 class="left-head">
           Confirmed:
         </h3>
-        <p class="right-number">${
+        <p class="right-number confirmed-number">${
           content.Country && content.Country.toLowerCase() === "india"
             ? statesData[0].confirmed
             : content.TotalConfirmed
@@ -360,9 +360,21 @@ async function viewDetails(card, index, data) {
       </div>
       <div class="stat-row">
         <h3 class="left-head">
+          Active:
+        </h3>
+        <p class="right-number active-number">${
+          content.Country && content.Country.toLowerCase() === "india"
+            ? statesData[0].active
+            : parseInt(content.TotalConfirmed) -
+              parseInt(content.TotalRecovered) -
+              parseInt(content.TotalDeaths)
+        }</p>
+      </div>
+      <div class="stat-row">
+        <h3 class="left-head">
           Recovered:
         </h3>
-        <p class="right-number">${
+        <p class="right-number recovered-number">${
           content.Country && content.Country.toLowerCase() === "india"
             ? statesData[0].recovered
             : content.TotalRecovered
@@ -376,7 +388,7 @@ async function viewDetails(card, index, data) {
         <h3 class="left-head">
           Deaths:
         </h3>
-        <p class="right-number">${
+        <p class="right-number death-number">${
           content.Country && content.Country.toLowerCase() === "india"
             ? statesData[0].deaths
             : content.TotalDeaths
@@ -502,8 +514,22 @@ async function viewDetails(card, index, data) {
     });
   }
   if (content.Country === "India") {
+    displayStateNotes();
     listenClickOnTableRows();
   }
+}
+
+function displayStateNotes() {
+  const infoSymbols = document.querySelectorAll(".info-svg");
+  const stateNotes = document.querySelectorAll(".state-notes");
+  infoSymbols.forEach((infoSymbol, index) => {
+    infoSymbol.addEventListener("mouseenter", () => {
+      stateNotes[index].classList.add("state-notes-displayed");
+    });
+    infoSymbol.addEventListener("mouseleave", () => {
+      stateNotes[index].classList.remove("state-notes-displayed");
+    });
+  });
 }
 
 function listenClickOnTableRows() {
@@ -516,13 +542,11 @@ function listenClickOnTableRows() {
           .trim()
           .replace(" ", "")}-updated-time`
       );
-      console.log(updatedTime);
       if (updatedTime) {
-        console.log("remove");
         updatedTime.remove();
         return;
       }
-      const stateLastUpdatedTime = document.createElement("div");
+      const stateLastUpdatedTime = document.createElement("section");
       stateLastUpdatedTime.classList.add(
         "state-last-updated-time",
         `${tableRow.children[0].textContent

@@ -829,13 +829,32 @@ main {
           @include flex(center, center);
           font-size: 16px;
           font-weight: bold;
-          color: getColor(blue-text-color);
           letter-spacing: 1px;
           span {
-            font-size: 14px;
-            color: getColor(gray-color);
+            font-size: 13px;
             font-weight: 600;
             margin-left: 6px;
+          }
+        }
+        .confirmed-number {
+          color: getColor(blue-text-color);
+          span {
+            color: getColor(blue-text-color);
+          }
+        }
+        .active-number {
+          color: getColor(active-head-color);
+        }
+        .recovered-number {
+          color: getColor(recovered-head-color);
+          span {
+            color: getColor(recovered-head-color);
+          }
+        }
+        .death-number {
+          color: getColor(deaths-head-color);
+          span {
+            color: getColor(death-head-color);
           }
         }
       }
@@ -900,7 +919,7 @@ main {
   }
   .sec2-content {
     @include flex(flex-start, flex-start, column);
-    overflow-x: scroll;
+    overflow-x: auto;
     width: 100%;
     padding: 20px 30px;
     .table-inner {
@@ -948,10 +967,10 @@ main {
       padding: 10px 5px;
       position: relative;
       transition: all 0.2s ease-in-out;
-      &:nth-child(even) {
+      &:nth-of-type(even) {
         background-color: getColor(background-clr);
       }
-      &:nth-child(odd) {
+      &:nth-of-type(odd) {
         background-color: getColor(odd-row-color);
       }
       p {
@@ -1004,11 +1023,7 @@ main {
         transition: all 0.25s ease-in-out;
       }
       &:hover {
-        .state-notes {
-          transform: translateY(-50%) translateX(0px);
-          opacity: 1;
-          pointer-events: all;
-        }
+        background-color: getColor(hover-gray-color);
       }
     }
     .has-notes {
@@ -1046,11 +1061,14 @@ main {
           padding-left: 10px;
         }
       }
-      &:hover {
-        background-color: getColor(hover-gray-color);
+      .state-notes-displayed {
+        transform: translateY(-50%) translateX(0px);
+        opacity: 1;
+        pointer-events: all;
       }
     }
     .state-last-updated-time {
+      width: 100%;
       min-height: 40px;
       padding: 15px 0;
       align-self: flex-start;
